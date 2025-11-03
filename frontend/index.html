@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOLA Analytics - Dashboard Principal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/charts.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-brand">
+                <h1>🍽️ NOLA Analytics</h1>
+                <span class="subtitle">Dashboard Principal - Visão Geral do Negócio</span>
+            </div>
+            <div class="header-actions">
+                <div class="date-filter">
+                    <select id="timeRange" class="filter-select">
+                        <option value="7">Últimos 7 dias</option>
+                        <option value="30" selected>Últimos 30 dias</option>
+                        <option value="90">Últimos 3 meses</option>
+                        <option value="180">Últimos 6 meses</option>
+                        <option value="365">Último ano</option>
+                    </select>
+                </div>
+                <div class="view-toggle">
+                    <button class="btn-mode active" data-mode="dashboard" onclick="location.href='index.html'">Dashboard</button>
+                    <button class="btn-mode" data-mode="simple" onclick="location.href='simple-mode.html'">Modo Simples</button>
+                    <button class="btn-mode" data-mode="advanced" onclick="location.href='advanced-mode.html'">Modo Avançado</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Health Status -->
+        <div class="health-status" id="health-status">
+            <div class="status-indicator" id="status-indicator">
+                <span class="status-dot"></span>
+                <span id="status-text">Conectando...</span>
+            </div>
+            <div class="last-update">
+                <span id="last-update">-</span>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <section class="kpi-section">
+            <div class="kpi-grid">
+                <div class="kpi-card revenue">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-content">
+                        <h3>Faturamento Total</h3>
+                        <div class="kpi-value" id="totalRevenue">R$ 0,00</div>
+                        <div class="kpi-period" id="revenuePeriod"> Métricas: junho a dezembro (basta ajustar em cima)</div>
+                        <div class="kpi-change" id="revenueChange">+0%</div>
+                    </div>
+                </div>
+                
+                <div class="kpi-card orders">
+                    <div class="kpi-icon">📦</div>
+                    <div class="kpi-content">
+                        <h3>Total de Pedidos</h3>
+                        <div class="kpi-value" id="totalOrders">0</div>
+                        <div class="kpi-period">Métricas: junho a dezembro (basta ajustar em cima)</div>
+                        <div class="kpi-change" id="ordersChange">+0%</div>
+                    </div>
+                </div>
+                
+                <div class="kpi-card ticket">
+                    <div class="kpi-icon">🎫</div>
+                    <div class="kpi-content">
+                        <h3>Ticket Médio</h3>
+                        <div class="kpi-value" id="avgTicket">R$ 0,00</div>
+                        <div class="kpi-period">Métricas: junho a dezembro (basta ajustar em cima)</div>
+                        <div class="kpi-change" id="ticketChange">+0%</div>
+                    </div>
+                </div>
+                
+                <div class="kpi-card customers">
+                    <div class="kpi-icon">👥</div>
+                    <div class="kpi-content">
+                        <h3>Clientes Únicos</h3>
+                        <div class="kpi-value" id="uniqueCustomers">0</div>
+                        <div class="kpi-period">Métricas: junho a dezembro (basta ajustar em cima)</div>
+                        <div class="kpi-change" id="customersChange">+0%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <section class="charts-section">
+            <div class="chart-row">
+                <div class="chart-card full-width">
+                    <h3>📈 Tendência de Faturamento Diário</h3>
+                    <canvas id="revenueTrendChart" class="chart-container"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-row">
+                <div class="chart-card">
+                    <h3>🍔 Top 10 Produtos Mais Vendidos</h3>
+                    <canvas id="topProductsChart" class="chart-container"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>📱 Performance por Canal</h3>
+                    <canvas id="channelChart" class="chart-container"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-row">
+                <div class="chart-card">
+                    <h3>🕒 Vendas por Hora do Dia</h3>
+                    <canvas id="hourlySalesChart" class="chart-container"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>📊 Métricas de Performance</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-label">Pedidos/Dia</span>
+                            <span class="metric-value" id="avgOrdersPerDay">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Faturamento/Dia</span>
+                            <span class="metric-value" id="avgRevenuePerDay">R$ 0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Taxa de Retenção</span>
+                            <span class="metric-value" id="retentionRate">0%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Crescimento Mensal</span>
+                            <span class="metric-value" id="monthlyGrowth">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <h3>🚀 Ações Rápidas</h3>
+            <div class="actions-grid">
+                <button class="action-btn" onclick="location.href='simple-mode.html'">
+                    <span class="action-icon">📊</span>
+                    <span class="action-text">Análises Guiadas</span>
+                    <span class="action-desc">Análises pré-definidas</span>
+                </button>
+                <button class="action-btn" onclick="location.href='advanced-mode.html'">
+                    <span class="action-icon">🔧</span>
+                    <span class="action-text">Query Builder</span>
+                    <span class="action-desc">Consultas personalizadas</span>
+                </button>
+                <button class="action-btn" id="export-dashboard">
+                    <span class="action-icon">📤</span>
+                    <span class="action-text">Exportar Relatório</span>
+                    <span class="action-desc">PDF completo</span>
+                </button>
+                <button class="action-btn" id="refresh-data">
+                    <span class="action-icon">🔄</span>
+                    <span class="action-text">Atualizar Dados</span>
+                    <span class="action-desc">Buscar informações mais recentes</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Carregando dados...</p>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/client.js"></script>
+</body>
+</html>

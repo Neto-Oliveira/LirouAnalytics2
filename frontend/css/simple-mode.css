@@ -1,0 +1,238 @@
+.simple-mode {
+    padding: 0;
+}
+
+/* Cards de Análise */
+.analysis-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.analysis-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border-left: 5px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.analysis-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.analysis-card .card-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.analysis-card h3 {
+    color: var(--dark-color);
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.analysis-card p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.card-features {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.feature {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 5px 10px;
+    background: var(--light-color);
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+}
+
+.btn-analysis {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    width: 100%;
+}
+
+.btn-analysis:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Resultados da Análise */
+.analysis-result {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+.analysis-result.hidden {
+    display: none;
+}
+
+.result-header {
+    background: var(--dark-color);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.result-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.result-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.result-content {
+    padding: 30px;
+}
+
+/* KPI Mini Cards no Resultado */
+.result-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.kpi-mini {
+    background: var(--light-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.kpi-mini-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--dark-color);
+    margin-bottom: 5px;
+}
+
+.kpi-mini-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+/* Charts no Resultado */
+.result-charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.result-charts.full-width {
+    grid-template-columns: 1fr;
+}
+
+.chart-container-result {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabela de Resultados */
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.result-table th,
+.result-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.result-table th {
+    background: var(--light-color);
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.result-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .analysis-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .result-charts {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-actions {
+        justify-content: center;
+    }
+}
+
+.result-charts .chart-container-result {
+    height: 280px !important;
+}
+
+.result-charts.full-width .chart-container-result {
+    height: 320px !important;
+}
+
+.result-kpis {
+    margin-bottom: 1.5rem;
+}
+
+.kpi-mini {
+    padding: 12px 15px;
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOLA Analytics - Modo Avançado</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/charts.css">
+    <link rel="stylesheet" href="css/advanced-mode.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-brand">
+                <h1>🍽️ NOLA Analytics</h1>
+                <span class="subtitle">Modo Avançado - Query Builder</span>
+            </div>
+            <div class="header-actions">
+                <div class="date-filter">
+                    <input type="date" id="start-date" class="date-input">
+                    <span>até</span>
+                    <input type="date" id="end-date" class="date-input">
+                    <button id="apply-dates" class="btn-primary">Aplicar</button>
+                </div>
+                <div class="view-toggle">
+                    <button class="btn-mode" data-mode="dashboard" onclick="location.href='index.html'">Dashboard</button>
+                    <button class="btn-mode" data-mode="simple" onclick="location.href='simple-mode.html'">Modo Simples</button>
+                    <button class="btn-mode active" data-mode="advanced">Modo Avançado</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Health Status -->
+        <div class="health-status" id="health-status">
+            <div class="status-indicator healthy">
+                <span class="status-dot"></span>
+                Sistema Online - Modo Avançado
+            </div>
+            <div class="cache-info">
+                <span>Arraste e solte campos para criar queries personalizadas</span>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="advanced-mode">
+            <!-- Sidebar com Campos -->
+            <aside class="query-sidebar">
+                <div class="sidebar-section">
+                    <h3>📊 Dimensões</h3>
+                    <div class="field-list" id="dimensions-list">
+                        <div class="field-item dimension" data-field="date" data-type="dimension" draggable="true">
+                            📅 Data
+                        </div>
+                        <div class="field-item dimension" data-field="product_name" data-type="dimension" draggable="true">
+                            🍕 Produto
+                        </div>
+                        <div class="field-item dimension" data-field="category" data-type="dimension" draggable="true">
+                            📁 Categoria
+                        </div>
+                        <div class="field-item dimension" data-field="channel" data-type="dimension" draggable="true">
+                            📱 Canal
+                        </div>
+                        <div class="field-item dimension" data-field="store" data-type="dimension" draggable="true">
+                            🏪 Loja
+                        </div>
+                        <div class="field-item dimension" data-field="payment_type" data-type="dimension" draggable="true">
+                            💳 Tipo Pagamento
+                        </div>
+                        <div class="field-item dimension" data-field="hour" data-type="dimension" draggable="true">
+                            ⏰ Hora
+                        </div>
+                        <div class="field-item dimension" data-field="weekday" data-type="dimension" draggable="true">
+                            📅 Dia da Semana
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>📈 Medidas</h3>
+                    <div class="field-list" id="measures-list">
+                        <div class="field-item measure" data-field="total_sales" data-type="measure" data-aggregation="sum" draggable="true">
+                            💰 Vendas Totais
+                        </div>
+                        <div class="field-item measure" data-field="quantity" data-type="measure" data-aggregation="sum" draggable="true">
+                            📦 Quantidade
+                        </div>
+                        <div class="field-item measure" data-field="order_count" data-type="measure" data-aggregation="count" draggable="true">
+                            🛒 Nº de Pedidos
+                        </div>
+                        <div class="field-item measure" data-field="avg_ticket" data-type="measure" data-aggregation="avg" draggable="true">
+                            🎫 Ticket Médio
+                        </div>
+                        <div class="field-item measure" data-field="unique_customers" data-type="measure" data-aggregation="count" draggable="true">
+                            👥 Clientes Únicos
+                        </div>
+                        <div class="field-item measure" data-field="avg_preparation_time" data-type="measure" data-aggregation="avg" draggable="true">
+                            ⏱️ Tempo Preparo
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>🔍 Filtros</h3>
+                    <div class="field-list" id="filters-list">
+                        <div class="field-item filter" data-field="date_range" data-type="filter" draggable="true">
+                            📅 Período
+                        </div>
+                        <div class="field-item filter" data-field="channel" data-type="filter" draggable="true">
+                            📱 Canal
+                        </div>
+                        <div class="field-item filter" data-field="store" data-type="filter" draggable="true">
+                            🏪 Loja
+                        </div>
+                        <div class="field-item filter" data-field="category" data-type="filter" draggable="true">
+                            📁 Categoria
+                        </div>
+                        <div class="field-item filter" data-field="price_range" data-type="filter" draggable="true">
+                            💲 Faixa de Preço
+                        </div>
+                        <div class="field-item filter" data-field="payment_type" data-type="filter" draggable="true">
+                            💳 Tipo Pagamento
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Área do Query Builder -->
+            <main class="query-builder">
+                <div class="builder-header">
+                    <h2>Construtor de Query</h2>
+                    <div class="query-preview" id="query-preview">
+                        Adicione campos para ver a preview da query
+                    </div>
+                </div>
+
+                <div class="builder-areas">
+                    <!-- Dimensões -->
+                    <div class="builder-area">
+                        <div class="area-header">
+                            <h3>Dimensões (Agrupar por)</h3>
+                            <small>Arraste campos para agrupar resultados</small>
+                        </div>
+                        <div class="area-content empty" id="dimensions-area" ondragover="advancedMode.handleDragOver(event)" ondrop="advancedMode.handleDrop(event, 'dimensions')">
+                            Solte dimensões aqui...
+                        </div>
+                    </div>
+
+                    <!-- Medidas -->
+                    <div class="builder-area">
+                        <div class="area-header">
+                            <h3>Medidas (Calcular)</h3>
+                            <small>Arraste campos para cálculos</small>
+                        </div>
+                        <div class="area-content empty" id="measures-area" ondragover="advancedMode.handleDragOver(event)" ondrop="advancedMode.handleDrop(event, 'measures')">
+                            Solte medidas aqui...
+                        </div>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="builder-area">
+                        <div class="area-header">
+                            <h3>Filtros (Onde)</h3>
+                            <small>Adicione condições para filtrar dados</small>
+                        </div>
+                        <div class="filter-builder" id="filters-area">
+                            <div class="filter-actions">
+                                <button class="btn-secondary" id="add-filter" type="button" onclick="advancedMode.addFilter()">+ Adicionar Filtro</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gráficos -->
+                    <div class="query-results">
+                        <div class="results-header">
+                            <h3>📊 Visualizações</h3>
+                            <div class="chart-actions">
+                                <button class="btn-secondary" id="toggle-charts" onclick="advancedMode.toggleCharts()">📈 Mostrar Gráficos</button>
+                                <button class="btn-secondary" id="export-charts" onclick="advancedMode.exportCharts()">💾 Exportar Gráficos</button>
+                            </div>
+                        </div>
+                        <div class="charts-container" id="charts-container" style="display: none;">
+                            <div class="charts-grid" id="charts-grid">
+                                <div class="chart-placeholder">
+                                    <p>Execute uma query para ver as visualizações</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resultados -->
+                    <div class="query-results">
+                        <div class="results-header">
+                            <h3>📋 Resultados da Query</h3>
+                            <div class="query-info">
+                                <span id="result-count">0 registros</span>
+                                <span id="execution-time">-</span>
+                            </div>
+                        </div>
+                        <div class="results-content">
+                            <table class="results-table" id="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>Selecione dimensões e medidas para ver resultados</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                                            🚀 Arraste campos das dimensões e medidas para construir sua query personalizada
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ações -->
+                <div class="query-actions">
+                    <div class="action-buttons">
+                        <button class="btn-primary" id="execute-query" onclick="advancedMode.executeQuery()">
+                            ▶ Executar Query
+                        </button>
+
+                        <button class="btn-secondary" id="clear-query" onclick="advancedMode.clearQuery()">
+                            🗑️ Limpar Tudo
+                        </button>
+                        <button class="btn-secondary" id="save-query" onclick="advancedMode.saveQuery()">
+                            💾 Salvar Query
+                        </button>
+                    </div>
+                    <div class="export-buttons">
+                        <button class="btn-secondary" id="export-results" onclick="advancedMode.exportResults()">
+                            📤 Exportar Resultados
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Executando query...</p>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/advanced-mode.js"></script>
+</body>
+</html>

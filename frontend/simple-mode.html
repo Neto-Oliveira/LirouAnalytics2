@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOLA Analytics - Modo Simples</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/componentsS.css">
+    <link rel="stylesheet" href="css/chartsS.css">
+    <link rel="stylesheet" href="css/simple-mode.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-brand">
+                <h1>🍽️ NOLA Analytics</h1>
+                <span class="subtitle">Modo Simples - Análises Pré-definidas</span>
+            </div>
+            <div class="header-actions">
+                <div class="date-filter">
+                    <select id="time-period" class="filter-select">
+                        <option value="7">Últimos 7 dias</option>
+                        <option value="30" selected>Últimos 30 dias</option>
+                        <option value="90">Últimos 3 meses</option>
+                        <option value="180">Últimos 6 meses</option>
+                        <option value="365">Último ano</option>
+                    </select>
+                </div>
+                <div class="view-toggle">
+                    <button class="btn-mode" data-mode="dashboard" onclick="location.href='index.html'">Dashboard</button>
+                    <button class="btn-mode active" data-mode="simple">Modo Simples</button>
+                    <button class="btn-mode" data-mode="advanced" onclick="location.href='advanced-mode.html'">Modo Avançado</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Health Status -->
+        <div class="health-status" id="health-status">
+            <div class="status-indicator healthy">
+                <span class="status-dot"></span>
+                <span id="status-text">Sistema Online - Modo Simples</span>
+            </div>
+            <div class="cache-info">
+                <span>Período: <strong id="current-period">últimos 30 dias</strong></span>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <main class="simple-mode">
+            <!-- Cards de Análise -->
+            <section class="analysis-cards" id="analysis-cards">
+                <!-- Análise de Produtos -->
+                <div class="analysis-card" data-analysis="products">
+                    <div class="card-icon">🍔</div>
+                    <h3>ANÁLISE DE PRODUTOS</h3>
+                    <p>Descubra quais produtos têm melhor desempenho por quantidade vendida e faturamento</p>
+                    <div class="card-features">
+                        <span class="feature">📊 Top 10 produtos</span>
+                        <span class="feature">💰 Faturamento por produto</span>
+                        <span class="feature">📈 Tendência de vendas</span>
+                    </div>
+                    <button class="btn-analysis" onclick="simpleMode.loadAnalysis('products')">
+                        ▶ Ver Análise
+                    </button>
+                </div>
+
+                <!-- Análise Temporal -->
+                <div class="analysis-card" data-analysis="temporal">
+                    <div class="card-icon">📈</div>
+                    <h3>ANÁLISE TEMPORAL</h3>
+                    <p>Evolução das vendas ao longo do tempo com comparação de períodos</p>
+                    <div class="card-features">
+                        <span class="feature">📅 Vendas diárias/semanais</span>
+                        <span class="feature">🔄 Comparação períodos</span>
+                        <span class="feature">🎯 Identificar tendências</span>
+                    </div>
+                    <button class="btn-analysis" onclick="simpleMode.loadAnalysis('temporal')">
+                        ▶ Ver Análise
+                    </button>
+                </div>
+
+                <!-- Análise de Canais -->
+                <div class="analysis-card" data-analysis="channels">
+                    <div class="card-icon">📱</div>
+                    <h3>ANÁLISE DE CANAIS</h3>
+                    <p>Performance dos diferentes canais de venda e ticket médio</p>
+                    <div class="card-features">
+                        <span class="feature">🛍️ Comparação entre canais</span>
+                        <span class="feature">💲 Ticket médio por canal</span>
+                        <span class="feature">📊 Volume de pedidos</span>
+                    </div>
+                    <button class="btn-analysis" onclick="simpleMode.loadAnalysis('channels')">
+                        ▶ Ver Análise
+                    </button>
+                </div>
+
+                <!-- Análise de Pagamentos -->
+                <div class="analysis-card" data-analysis="payments">
+                    <div class="card-icon">💳</div>
+                    <h3>ANÁLISE DE PAGAMENTOS</h3>
+                    <p>Métodos de pagamento preferidos e performance financeira</p>
+                    <div class="card-features">
+                        <span class="feature">💰 Cartão, PIX, dinheiro</span>
+                        <span class="feature">📈 Ticket por método</span>
+                        <span class="feature">🕒 Horários de pagamento</span>
+                    </div>
+                    <button class="btn-analysis" onclick="simpleMode.loadAnalysis('payments')">
+                        ▶ Ver Análise
+                    </button>
+                </div>
+
+                <!-- Análise de Clientes -->
+                <div class="analysis-card" data-analysis="customers">
+                    <div class="card-icon">👥</div>
+                    <h3>ANÁLISE DE CLIENTES</h3>
+                    <p>Perfil dos clientes, frequência de compras e valor médio</p>
+                    <div class="card-features">
+                        <span class="feature">🎯 Clientes frequentes</span>
+                        <span class="feature">🆕 Novos clientes</span>
+                        <span class="feature">💎 Valor por cliente</span>
+                    </div>
+                    <button class="btn-analysis" onclick="simpleMode.loadAnalysis('customers')">
+                        ▶ Ver Análise
+                    </button>
+                </div>
+
+                <!-- Análise de Sazonalidade -->
+                <div class="analysis-card" data-analysis="seasonality">
+                    <div class="card-icon">🎯</div>
+                    <h3>ANÁLISE DE SAZONALIDADE</h3>
+                    <p>Padrões sazonais e melhores horários/dias para vendas</p>
+                    <div class="card-features">
+                        <span class="feature">⏰ Horários de pico</span>
+                        <span class="feature">📅 Dias da semana</span>
+                        <span class="feature">🌤️ Meses sazonais</span>
+                    </div>
+                    <button class="btn-analysis" onclick="simpleMode.loadAnalysis('seasonality')">
+                        ▶ Ver Análise
+                    </button>
+                </div>
+            </section>
+
+            <!-- Resultados da Análise -->
+            <section class="analysis-result hidden" id="analysis-result">
+                <div class="result-header">
+                    <button class="back-button" onclick="simpleMode.showAnalysisCards()">
+                        ← Voltar para análises
+                    </button>
+                    <h2 id="result-title">Análise de Produtos</h2>
+                    <div class="result-actions">
+                        <button class="btn-secondary" onclick="simpleMode.exportChart()">Exportar PNG</button>
+                        <button class="btn-primary" onclick="simpleMode.exportCSV()">Exportar CSV</button>
+                    </div>
+                </div>
+                <div class="result-content" id="result-content">
+                    <!-- Conteúdo dinâmico será inserido aqui -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Loading -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Processando análise...</p>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/simple-mode.js"></script>
+</body>
+</html>
