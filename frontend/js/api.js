@@ -1,6 +1,6 @@
 class NolaAPI {
     constructor() {
-        this.baseURL = 'http://localhost:8000/api/v1';
+        this.baseURL = 'http://146.235.35.117:8000/api/v1';
         this.cache = new Map();
         this.cacheTimeout = 300000; // 5 minutos
     }
